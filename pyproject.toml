@@ -66,6 +66,7 @@ dev = [
   "pytest-asyncio>=0.25.1",
   "pytest-mypy-plugins>=3.2.0",
   "ruff>=0.8.6",
+  "pyright",
 ]
 
 [tool.pyright]
