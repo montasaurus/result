@@ -53,8 +53,6 @@ warn_return_any = true
 warn_unused_configs = true
 warn_unused_ignores = true
 
-[tool.ruff]
-target-version = "py310"
 
 [tool.pytest.ini_options]
 addopts = ["--tb=short"]
@@ -69,3 +67,6 @@ dev = [
   "pytest-mypy-plugins>=3.2.0",
   "ruff>=0.8.6",
 ]
+
+[tool.pyright]
+strict = ["src/result/**"]

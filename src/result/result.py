@@ -53,7 +53,7 @@ class Ok(Generic[T]):
         return "Ok({})".format(repr(self._value))
 
     def __eq__(self, other: Any) -> bool:
-        return isinstance(other, Ok) and self._value == other._value
+        return isinstance(other, Ok) and self._value == other._value  # pyright: ignore[reportUnknownVariableType, reportUnknownMemberType]
 
     def __ne__(self, other: Any) -> bool:
         return not (self == other)
@@ -126,7 +126,7 @@ class Ok(Generic[T]):
         """
         raise UnwrapError(self, "Called `Result.unwrap_err()` on an `Ok` value")
 
-    def unwrap_or(self, _default: U) -> T:
+    def unwrap_or(self, _default: U) -> T:  # pyright: ignore[reportInvalidTypeVarUse]
         """
         Return the value.
         """
@@ -250,7 +250,7 @@ class Err(Generic[E]):
         return "Err({})".format(repr(self._value))
 
     def __eq__(self, other: Any) -> bool:
-        return isinstance(other, Err) and self._value == other._value
+        return isinstance(other, Err) and self._value == other._value  # pyright: ignore[reportUnknownMemberType, reportUnknownVariableType]
 
     def __ne__(self, other: Any) -> bool:
         return not (self == other)
@@ -470,7 +470,7 @@ def as_result(
     exceptions of the specified exception type(s) are turned into ``Err(exc)``.
     """
     if not exceptions or not all(
-        inspect.isclass(exception) and issubclass(exception, BaseException)
+        inspect.isclass(exception) and issubclass(exception, BaseException)  # pyright: ignore[reportUnnecessaryIsInstance]
         for exception in exceptions
     ):
         raise TypeError("as_result() requires one or more exception types")
@@ -506,7 +506,7 @@ def as_async_result(
     exceptions of the specified exception type(s) are turned into ``Err(exc)``.
     """
     if not exceptions or not all(
-        inspect.isclass(exception) and issubclass(exception, BaseException)
+        inspect.isclass(exception) and issubclass(exception, BaseException)  # pyright: ignore[reportUnnecessaryIsInstance]
         for exception in exceptions
     ):
         raise TypeError("as_result() requires one or more exception types")
@@ -542,7 +542,7 @@ def as_generator_result(
     Callable[P, Generator[Result[TY, TBE], TS, TR | None]],
 ]:
     if not exceptions or not all(
-        inspect.isclass(exception) and issubclass(exception, BaseException)
+        inspect.isclass(exception) and issubclass(exception, BaseException)  # pyright: ignore[reportUnnecessaryIsInstance]
         for exception in exceptions
     ):
         raise TypeError("as_result() requires one or more exception types")
@@ -603,7 +603,7 @@ def as_async_generator_result(
     Callable[P, AsyncGenerator[Result[TY, TBE], TS]],
 ]:
     if not exceptions or not all(
-        inspect.isclass(exception) and issubclass(exception, BaseException)
+        inspect.isclass(exception) and issubclass(exception, BaseException)  # pyright: ignore[reportUnnecessaryIsInstance]
         for exception in exceptions
     ):
         raise TypeError("as_result() requires one or more exception types")

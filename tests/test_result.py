@@ -44,13 +44,13 @@ def to_err_lambda(i: int) -> Result[int, int]:
 
 def test_ok_factories() -> None:
     instance = Ok(1)
-    assert instance._value == 1
+    assert instance._value == 1  # pyright: ignore[reportPrivateUsage]
     assert instance.is_ok() is True
 
 
 def test_err_factories() -> None:
     instance = Err(2)
-    assert instance._value == 2
+    assert instance._value == 2  # pyright: ignore[reportPrivateUsage]
     assert instance.is_err() is True
 
 
@@ -419,13 +419,13 @@ def test_as_result_invalid_usage() -> None:
     with pytest.raises(TypeError, match=message):
 
         @as_result()  # No exception types specified
-        def f() -> int:
+        def f() -> int:  # pyright: ignore[reportUnusedFunction]
             return 1
 
     with pytest.raises(TypeError, match=message):
 
         @as_result("not an exception type")  # type: ignore[arg-type]
-        def g() -> int:
+        def g() -> int:  # pyright: ignore[reportUnusedFunction]
             return 1
 
 
@@ -542,8 +542,8 @@ def test_as_generator_result_with_send() -> None:
     @as_generator_result(ValueError)
     def my_generator() -> Generator[int, int, None]:
         val = yield 1
-        val = yield val if val is not None else 0
-        val = yield val + 2 if val is not None else 0
+        val = yield val if val is not None else 0  # pyright: ignore[reportUnnecessaryComparison]
+        val = yield val + 2 if val is not None else 0  # pyright: ignore[reportUnnecessaryComparison]
 
     result = my_generator()
     assert next(result) == Ok(1)
@@ -558,13 +558,13 @@ def test_as_generator_result_with_send_and_exception() -> None:
     def my_generator() -> Generator[Result[int, ValueError], int, None]:
         val: int | None = yield Ok(1)
         try:
-            if val is not None:
+            if val is not None:  # pyright: ignore[reportUnnecessaryComparison]
                 raise ValueError("Send Value Error")
         except ValueError as e:
             val = yield Err(e)
 
-        val = yield Ok(val) if val is not None else Ok(0)
-        val = yield Ok(val + 2) if val is not None else Ok(0)
+        val = yield Ok(val) if val is not None else Ok(0)  # pyright: ignore[reportUnnecessaryComparison]
+        val = yield Ok(val + 2) if val is not None else Ok(0)  # pyright: ignore[reportUnnecessaryComparison]
 
     result = my_generator()
     assert next(result) == Ok(Ok(1))
@@ -640,8 +640,8 @@ async def test_as_async_generator_result_with_send() -> None:
     @as_async_generator_result(ValueError)
     async def my_generator() -> AsyncGenerator[int, int]:
         val = yield 1
-        val = yield val if val is not None else 0
-        val = yield val + 2 if val is not None else 0
+        val = yield val if val is not None else 0  # pyright: ignore[reportUnnecessaryComparison]
+        val = yield val + 2 if val is not None else 0  # pyright: ignore[reportUnnecessaryComparison]
 
     result = my_generator()
     assert await anext(result) == Ok(1)
@@ -657,13 +657,13 @@ async def test_as_async_generator_result_with_send_and_exception() -> None:
     async def my_generator() -> AsyncGenerator[Result[int, ValueError], int]:
         val: int | None = yield Ok(1)
         try:
-            if val is not None:
+            if val is not None:  # pyright: ignore[reportUnnecessaryComparison]
                 raise ValueError("Async Send Value Error")
         except ValueError as e:
             val = yield Err(e)
 
-        val = yield Ok(val) if val is not None else Ok(0)
-        val = yield Ok(val + 2) if val is not None else Ok(0)
+        val = yield Ok(val) if val is not None else Ok(0)  # pyright: ignore[reportUnnecessaryComparison]
+        val = yield Ok(val + 2) if val is not None else Ok(0)  # pyright: ignore[reportUnnecessaryComparison]
 
     result = my_generator()
     assert await anext(result) == Ok(Ok(1))
