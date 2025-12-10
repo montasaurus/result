@@ -18,19 +18,22 @@ jobs:
           - "3.10"
     name: Python ${{ matrix.python }}
     steps:
-      - uses: actions/checkout@v4
-      - name: Install the latest version of uv and set the python version
-        uses: astral-sh/setup-uv@v5
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Install just
+        uses: extractions/setup-just@v3
+
+      - name: Install Python ${{ matrix.python }}
+        uses: astral-sh/setup-uv@v7
         with:
           python-version: ${{ matrix.python }}
 
       # Quality
       - name: Test with python ${{ matrix.python }}
-        run: uv run --frozen pytest
+        run: just test-ci
       - name: Lint
-        run: make lint
-      - name: Type check
-        run: make type-check
+        run: just check
 
       # Packaging
       - name: Build packages

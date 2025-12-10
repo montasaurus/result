@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-
 import pytest
 
 from result import Err, Ok, Result, do, do_async
@@ -192,7 +191,7 @@ async def test_result_do_general_with_async_values_inline_error() -> None:
             Ok(len(x) + int(y) + z)
             for x in await aget_resx(True)
             for y in await aget_resy(True)
-            for z in get_resz(True)
+            for z in get_resz(True)  # pyright: ignore[reportArgumentType]
         )
 
     assert (
