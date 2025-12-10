@@ -2,15 +2,22 @@
 
 ## [Unreleased]
 
+- Added Python 3.14
+
+## [0.19.0]
+
 ### Breaking
+
 - Dropped Python 3.8 & 3.9 to simplify maintenance
 
 ### Features
+
 - Added Python 3.13
 - Added support for `@as_generator_result` and `@as_async_generator_result`, which function like `@as_result` but wrap the yield values of a generator
 - Allow bubbling up unwrapping of nested `Result` inside the `@as_*` decorated classes. If you unwrap an `Err` of an exception type that you handle in the generator, it will return that `Err(Exception)`from the decorated function as if you had thrown the Exception directly.
 
 ### Fixes
+
 - Switch to a uv build system with hatch
 - Switched linter to Ruff
 - Updated the links to point to forked repo
@@ -45,7 +52,7 @@
 
 ## [0.13.1] - 2023-07-19
 
-- `[fixed]`  Use `self._value` instead of deprecated `self.value` in `Err.expect` and `Err.unwrap` to avoid raising a warning (#133)
+- `[fixed]` Use `self._value` instead of deprecated `self.value` in `Err.expect` and `Err.unwrap` to avoid raising a warning (#133)
 
 ## [0.13.0] - 2023-07-15
 
@@ -108,49 +115,48 @@ safe. Unfortunately this means some breaking changes. Please check out
 [MIGRATING.md], it will guide you through the necessary changes in your
 codebase.
 
-
 - [changed] Split result type into `Ok` and `Err` classes (#17, #27)
 - [deprecated] Python 3.4 support is deprecated and will be removed in the next
   release
 
 ## [0.5.0] - 2020-03-03
 
- - [added] Implement `map`, `map_err`, `map_or` and `map_or_else` (#19)
- - [added] Add `unwrap_err` and `expect_err` methods (#26)
- - [changed] Type annotations: Change parameter order
-   from `Result[E, T]` to `Result[T, E]` to match Rust/OCaml/F# (#7)
+- [added] Implement `map`, `map_err`, `map_or` and `map_or_else` (#19)
+- [added] Add `unwrap_err` and `expect_err` methods (#26)
+- [changed] Type annotations: Change parameter order
+  from `Result[E, T]` to `Result[T, E]` to match Rust/OCaml/F# (#7)
 
 ## [0.4.1] - 2020-02-17
 
- - [added] Add `py.typed` for PEP561 package compliance (#16)
+- [added] Add `py.typed` for PEP561 package compliance (#16)
 
 ## [0.4.0] - 2019-04-17
 
- - [added] Add `unwrap`, `unwrap_or` and `expect` (#9)
- - [removed] Drop support for Python 2 and 3.3
- - [changed] Only install typing dependency for Python <3.5
+- [added] Add `unwrap`, `unwrap_or` and `expect` (#9)
+- [removed] Drop support for Python 2 and 3.3
+- [changed] Only install typing dependency for Python <3.5
 
 ## [0.3.0] - 2017-07-12
 
- - [added] This library is now fully type annotated (#4, thanks @tyehle)
- - [added] Implementations for `__ne__`, `__hash__` and `__repr__`
- - [deprecated] Python 2 support is deprecated and will be removed in the 0.4 release
+- [added] This library is now fully type annotated (#4, thanks @tyehle)
+- [added] Implementations for `__ne__`, `__hash__` and `__repr__`
+- [deprecated] Python 2 support is deprecated and will be removed in the 0.4 release
 
 ## [0.2.2] - 2016-09-21
 
- - [added] `__eq__` magic method
+- [added] `__eq__` magic method
 
 ## [0.2.0] - 2016-05-05
 
- - [added] Convenience default: `Ok()` == `Ok(True)`
+- [added] Convenience default: `Ok()` == `Ok(True)`
 
 ## [0.1.1] - 2015-12-14
 
- - [fixed] Import bugfix
+- [fixed] Import bugfix
 
 ## [0.1.0] - 2015-12-14
 
- - Initial version
+- Initial version
 
 [MIGRATING.md]: https://github.com/rustedpy/result/blob/main/MIGRATING.md
 [Unreleased]: https://github.com/rustedpy/result/compare/v0.17.0...HEAD
