@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import AsyncGenerator, Generator
+from collections.abc import AsyncGenerator, Generator
 
 import pytest
 
@@ -60,7 +60,7 @@ def test_eq() -> None:
     assert Ok(1) != Err(1)
     assert Ok(1) != Ok(2)
     assert Err(1) != Err(2)
-    assert not (Ok(1) != Ok(1))
+    assert not (Ok(1) != Ok(1))  # noqa: SIM202
     assert Ok(1) != "abc"
     assert Ok("0") != Ok(0)
 
