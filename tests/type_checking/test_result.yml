@@ -1,5 +1,5 @@
 ---
-# reveal_type(res3) # N: Revealed type is "result.result.Err[builtins.int]"
+# reveal_type(res3) # N: Revealed type is "result.result.Err[int]"
 - case: failure_lash
   disable_cache: false
   main: |
@@ -9,35 +9,35 @@
 
 
     res1: Result[str, int] = Ok('hello')
-    reveal_type(res1) # N: Revealed type is "result.result.Ok[builtins.str] | result.result.Err[builtins.int]"
+    reveal_type(res1) # N: Revealed type is "result.result.Ok[str] | result.result.Err[int]"
     if isinstance(res1, Ok):
         ok: Ok[str] = res1
-        reveal_type(ok) # N: Revealed type is "result.result.Ok[builtins.str]"
+        reveal_type(ok) # N: Revealed type is "result.result.Ok[str]"
         okValue: str = res1.ok()
-        reveal_type(okValue) # N: Revealed type is "builtins.str"
+        reveal_type(okValue) # N: Revealed type is "str"
         mapped_to_float: float = res1.map_or(1.0, lambda s: len(s) * 1.5)
-        reveal_type(mapped_to_float) # N: Revealed type is "builtins.float"
+        reveal_type(mapped_to_float) # N: Revealed type is "float"
     else:
         err: Err[int] = res1
-        reveal_type(err) # N: Revealed type is "result.result.Err[builtins.int]"
+        reveal_type(err) # N: Revealed type is "result.result.Err[int]"
         errValue: int = err.err()
-        reveal_type(errValue) # N: Revealed type is "builtins.int"
+        reveal_type(errValue) # N: Revealed type is "int"
         mapped_to_list: Optional[List[int]] = res1.map_err(lambda e: [e]).err()
-        reveal_type(mapped_to_list) # N: Revealed type is "builtins.list[builtins.int] | None"
+        reveal_type(mapped_to_list) # N: Revealed type is "list[int] | None"
 
     # Test constructor functions
     res2 = Ok(42)
-    reveal_type(res2) # N: Revealed type is "result.result.Ok[builtins.int]"
+    reveal_type(res2) # N: Revealed type is "result.result.Ok[int]"
     res3 = Err(1)
-    reveal_type(res3) # N: Revealed type is "result.result.Err[builtins.int]"
+    reveal_type(res3) # N: Revealed type is "result.result.Err[int]"
 
     res4 = Ok(4)
     add1: Callable[[int], Result[int, str]] = lambda i: Ok(i + 1)
     toint: Callable[[str], Result[int, str]] = lambda i: Ok(int(i))
     res5 = res4.and_then(add1)
-    reveal_type(res5) # N: Revealed type is "result.result.Ok[builtins.int] | result.result.Err[builtins.str]"
+    reveal_type(res5) # N: Revealed type is "result.result.Ok[int] | result.result.Err[str]"
     res6 = res4.or_else(toint)
-    reveal_type(res6) # N: Revealed type is "result.result.Ok[builtins.int]"
+    reveal_type(res6) # N: Revealed type is "result.result.Ok[int]"
 
 - case: covariance
   disable_cache: false
@@ -62,12 +62,12 @@
     from result import Err, Ok
 
     o = Ok("42")
-    reveal_type(o.map(int))  # N: Revealed type is "result.result.Ok[builtins.int]"
-    reveal_type(o.map_err(int))  # N: Revealed type is "result.result.Ok[builtins.str]"
+    reveal_type(o.map(int))  # N: Revealed type is "result.result.Ok[int]"
+    reveal_type(o.map_err(int))  # N: Revealed type is "result.result.Ok[str]"
 
     e = Err("42")
-    reveal_type(e.map(int))  # N: Revealed type is "result.result.Err[builtins.str]"
-    reveal_type(e.map_err(int))  # N: Revealed type is "result.result.Err[builtins.int]"
+    reveal_type(e.map(int))  # N: Revealed type is "result.result.Err[str]"
+    reveal_type(e.map_err(int))  # N: Revealed type is "result.result.Err[int]"
 
 - case: map_result
   disable_cache: false
@@ -77,10 +77,10 @@
     greeting_res: Result[str, ValueError] = Ok("Hello")
 
     personalized_greeting_res = greeting_res.map(lambda g: f"{g}, John")
-    reveal_type(personalized_greeting_res) # N: Revealed type is "result.result.Ok[builtins.str] | result.result.Err[builtins.ValueError]"
+    reveal_type(personalized_greeting_res) # N: Revealed type is "result.result.Ok[str] | result.result.Err[ValueError]"
 
     personalized_greeting = personalized_greeting_res.ok()
-    reveal_type(personalized_greeting) # N: Revealed type is "builtins.str | None"
+    reveal_type(personalized_greeting) # N: Revealed type is "str | None"
 
 - case: map_result
   disable_cache: false
@@ -89,12 +89,12 @@
 
     res1: Result[int, str] = Ok(1)
     if is_ok(res1):
-        reveal_type(res1)  # N: Revealed type is "result.result.Ok[builtins.int]"
+        reveal_type(res1)  # N: Revealed type is "result.result.Ok[int]"
     else:
-        reveal_type(res1)  # N: Revealed type is "result.result.Err[builtins.str]"
+        reveal_type(res1)  # N: Revealed type is "result.result.Err[str]"
 
     res2: Result[int, str] = Err("error")
     if is_err(res2):
-        reveal_type(res2)  # N: Revealed type is "result.result.Err[builtins.str]"
+        reveal_type(res2)  # N: Revealed type is "result.result.Err[str]"
     else:
-        reveal_type(res2)  # N: Revealed type is "result.result.Ok[builtins.int]"
+        reveal_type(res2)  # N: Revealed type is "result.result.Ok[int]"
