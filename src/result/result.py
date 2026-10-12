@@ -1,4 +1,4 @@
-# ruff: noqa: PLC0105
+# ruff: file-ignore[type-name-incorrect-variance]
 from __future__ import annotations
 
 import functools
@@ -72,7 +72,7 @@ class Ok(Generic[T]):
         """
         Return `None`.
         """
-        return
+        return None
 
     @property
     def value(self) -> T:
@@ -263,7 +263,7 @@ class Err(Generic[E]):
         """
         Return `None`.
         """
-        return
+        return None
 
     def err(self) -> E:
         """

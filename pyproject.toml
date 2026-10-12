@@ -70,3 +70,6 @@ strict = ["src/result/**"]
 [tool.pytest.ini_options]
 addopts = ["--tb=short"]
 testpaths = ["tests"]
+
+[tool.ruff]
+extend = "ruff.default.toml"
