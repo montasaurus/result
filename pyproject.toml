@@ -1,27 +1,38 @@
 [project]
 name = "result"
-dynamic = ["version"]
 description = "A Rust-like result type for Python"
 readme = "README.md"
-keywords = ["rust", "result", "enum"]
+requires-python = ">=3.11"
+license-files = ["LICENSE"]
 authors = [{ name = "Danilo Bargen", email = "mail@dbrgn.ch" }]
-license = { file = "LICENSE" }
+keywords = ["enum", "result", "rust"]
 classifiers = [
   "Development Status :: 4 - Beta",
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
-  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.15",
 ]
-requires-python = ">=3.10"
 dependencies = []
+dynamic = ["version"]
 
 [project.urls]
 Homepage = "https://github.com/montasaurus/result"
+
+[dependency-groups]
+dev = [
+  "lazydocs>=0.4.8",
+  "mypy>=1.14.1",
+  "pyright",
+  "pytest>=8.3.4",
+  "pytest-asyncio>=0.25.1",
+  "pytest-mypy-plugins>=3.2.0",
+  "ruff>=0.8.6",
+]
 
 [build-system]
 requires = ["hatchling"]
@@ -53,21 +64,9 @@ warn_return_any = true
 warn_unused_configs = true
 warn_unused_ignores = true
 
+[tool.pyright]
+strict = ["src/result/**"]
 
 [tool.pytest.ini_options]
 addopts = ["--tb=short"]
 testpaths = ["tests"]
-
-[dependency-groups]
-dev = [
-  "lazydocs>=0.4.8",
-  "mypy>=1.14.1",
-  "pytest>=8.3.4",
-  "pytest-asyncio>=0.25.1",
-  "pytest-mypy-plugins>=3.2.0",
-  "ruff>=0.8.6",
-  "pyright",
-]
-
-[tool.pyright]
-strict = ["src/result/**"]
