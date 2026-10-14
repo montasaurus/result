@@ -60,7 +60,7 @@ def test_eq() -> None:
     assert Ok(1) != Err(1)
     assert Ok(1) != Ok(2)
     assert Err(1) != Err(2)
-    assert not (Ok(1) != Ok(1))  # noqa: SIM202
+    assert not (Ok(1) != Ok(1))  # ruff: ignore[negate-not-equal-op]
     assert Ok(1) != "abc"
     assert Ok("0") != Ok(0)
 
@@ -352,9 +352,9 @@ def test_slots() -> None:
     o = Ok("yay")
     n = Err("nay")
     with pytest.raises(AttributeError):
-        o.some_arbitrary_attribute = 1  # type: ignore[attr-defined]
+        o.some_arbitrary_attribute = 1  # type: ignore[attr-defined]  # ty: ignore[unresolved-attribute]
     with pytest.raises(AttributeError):
-        n.some_arbitrary_attribute = 1  # type: ignore[attr-defined]
+        n.some_arbitrary_attribute = 1  # type: ignore[attr-defined]  # ty: ignore[unresolved-attribute]
 
 
 def test_as_result() -> None:
@@ -424,7 +424,7 @@ def test_as_result_invalid_usage() -> None:
 
     with pytest.raises(TypeError, match=message):
 
-        @as_result("not an exception type")  # type: ignore[arg-type]
+        @as_result("not an exception type")  # type: ignore[arg-type]  # ty: ignore[invalid-argument-type]
         def g() -> int:  # pyright: ignore[reportUnusedFunction]
             return 1
 

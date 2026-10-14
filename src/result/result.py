@@ -784,7 +784,7 @@ async def do_async(
     """
     try:
         if isinstance(gen, AsyncGenerator):
-            return await gen.__anext__()
+            return await anext(gen)
         else:
             return next(gen)
     except DoException as e:

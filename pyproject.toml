@@ -73,3 +73,6 @@ testpaths = ["tests"]
 
 [tool.ruff]
 extend = "ruff.default.toml"
+
+[tool.ruff.lint]
+ignore = ["unused-async"]
