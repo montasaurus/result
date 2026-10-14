@@ -20,13 +20,13 @@ __all__ = [
     "OkErr",
     "Result",
     "UnwrapError",
-    "as_async_result",
-    "as_result",
     "as_async_generator_result",
+    "as_async_result",
     "as_generator_result",
-    "is_ok",
-    "is_err",
+    "as_result",
     "do",
     "do_async",
+    "is_err",
+    "is_ok",
 ]
 __version__ = "0.19.0"
