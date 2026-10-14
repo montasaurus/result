@@ -580,7 +580,7 @@ def as_generator_result(
                         ue.__cause__, exceptions
                     ):
                         yield Err(ue.__cause__)
-                        return None
+                        return None  # ruff: ignore[return-in-generator]
 
                     raise
 
