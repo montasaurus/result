@@ -459,6 +459,7 @@ class UnwrapError(Exception):
         return self._result
 
 
+# TODO: Remove ty ignores below when it narrows generic exception tuples.
 def as_result(
     *exceptions: type[TBE],
 ) -> Callable[[Callable[P, R]], Callable[P, Result[R, TBE]]]:
@@ -484,10 +485,10 @@ def as_result(
             try:
                 return Ok(f(*args, **kwargs))
             except exceptions as exc:
-                return Err(exc)
+                return Err(exc)  # ty: ignore[invalid-return-type]
             except UnwrapError as ue:
                 if ue.__cause__ is not None and isinstance(ue.__cause__, exceptions):
-                    return Err(ue.__cause__)
+                    return Err(ue.__cause__)  # ty: ignore[invalid-return-type]
 
                 raise
 
@@ -522,10 +523,10 @@ def as_async_result(
             try:
                 return Ok(await f(*args, **kwargs))
             except exceptions as exc:
-                return Err(exc)
+                return Err(exc)  # ty: ignore[invalid-return-type]
             except UnwrapError as ue:
                 if ue.__cause__ is not None and isinstance(ue.__cause__, exceptions):
-                    return Err(ue.__cause__)
+                    return Err(ue.__cause__)  # ty: ignore[invalid-return-type]
 
                 raise
 
@@ -560,11 +561,11 @@ def as_generator_result(
             except StopIteration as e:
                 return e.value  # type: ignore[no-any-return]
             except exceptions as exc:
-                yield Err(exc)
+                yield Err(exc)  # ty: ignore[invalid-yield]
                 return None
             except UnwrapError as ue:
                 if ue.__cause__ is not None and isinstance(ue.__cause__, exceptions):
-                    yield Err(ue.__cause__)
+                    yield Err(ue.__cause__)  # ty: ignore[invalid-yield]
                     return None
 
                 raise
@@ -577,13 +578,13 @@ def as_generator_result(
                 except StopIteration as e:
                     return e.value  # type: ignore[no-any-return]
                 except exceptions as exc:
-                    send_value = yield Err(exc)
+                    send_value = yield Err(exc)  # ty: ignore[invalid-yield]
                     return None
                 except UnwrapError as ue:
                     if ue.__cause__ is not None and isinstance(
                         ue.__cause__, exceptions
                     ):
-                        yield Err(ue.__cause__)
+                        yield Err(ue.__cause__)  # ty: ignore[invalid-yield]
                         return None  # ruff: ignore[return-in-generator]
 
                     raise
@@ -621,11 +622,11 @@ def as_async_generator_result(
             except StopAsyncIteration:
                 return
             except exceptions as exc:
-                yield Err(exc)
+                yield Err(exc)  # ty: ignore[invalid-yield]
                 return
             except UnwrapError as ue:
                 if ue.__cause__ is not None and isinstance(ue.__cause__, exceptions):
-                    yield Err(ue.__cause__)
+                    yield Err(ue.__cause__)  # ty: ignore[invalid-yield]
                     return
 
                 raise
@@ -638,13 +639,13 @@ def as_async_generator_result(
                 except StopAsyncIteration:
                     return
                 except exceptions as exc:
-                    send_value = yield Err(exc)
+                    send_value = yield Err(exc)  # ty: ignore[invalid-yield]
                     return
                 except UnwrapError as ue:
                     if ue.__cause__ is not None and isinstance(
                         ue.__cause__, exceptions
                     ):
-                        yield Err(ue.__cause__)
+                        yield Err(ue.__cause__)  # ty: ignore[invalid-yield]
                         return
 
                     raise

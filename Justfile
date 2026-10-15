@@ -16,11 +16,14 @@ pyright:
 mypy:
 	uv run mypy
 
+ty:
+	uv run ty check
+
 ruff:
 	uv run ruff check .
 
 [parallel]
-check: pyright ruff mypy
+check: pyright ruff mypy ty
 
 fix:
 	uv run ruff check . --fix
