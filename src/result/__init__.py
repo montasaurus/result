@@ -29,4 +29,4 @@ __all__ = [
     "is_err",
     "is_ok",
 ]
-__version__ = "0.19.0"
+__version__ = "0.20.0"

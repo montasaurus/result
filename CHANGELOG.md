@@ -2,9 +2,16 @@
 
 ## [Unreleased]
 
+## [0.20.0]
+
+### Breaking
+
+- Dropped Python 3.10
+
+### Features
+
 - Added Python 3.14
 - Added Python 3.15
-- Dropped Python 3.10
 
 ## [0.19.0]
 
