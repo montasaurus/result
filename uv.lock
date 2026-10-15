@@ -799,6 +799,9 @@ wheels = [
 [[package]]
 name = "result"
 source = { editable = "." }
+dependencies = [
+    { name = "typing-extensions", marker = "python_full_version < '3.13'" },
+]
 
 [package.dev-dependencies]
 dev = [
@@ -812,6 +815,7 @@ dev = [
 ]
 
 [package.metadata]
+requires-dist = [{ name = "typing-extensions", marker = "python_full_version < '3.13'", specifier = ">=4.10.0" }]
 
 [package.metadata.requires-dev]
 dev = [
