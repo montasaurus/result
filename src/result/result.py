@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import functools
 import inspect
+import sys
 from collections.abc import AsyncGenerator, Awaitable, Callable, Generator, Iterator
 from typing import (
     Any,
@@ -16,7 +17,10 @@ from typing import (
 )
 from warnings import warn
 
-from typing_extensions import TypeIs
+if sys.version_info >= (3, 13):
+    from typing import TypeIs
+else:
+    from typing_extensions import TypeIs
 
 T = TypeVar("T", covariant=True)  # Success type
 E = TypeVar("E", covariant=True)  # Error type
